@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="agera是什么agera的基本用法1agera的基本用法2agera在实际Android开发中使用    ##agera是什么 agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android S">
+<meta name="description" content="agera是什么agera的基本用法1agera的基本用法2agera在实际Android开发中使用    agera是什么agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android SDK">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="android响应式框架之agera">
 <meta property="og:url" content="https://wyong2017.github.io/2017/04/29/android响应式框架之agera/index.html">
 <meta property="og:site_name" content="W.Y">
-<meta property="og:description" content="agera是什么agera的基本用法1agera的基本用法2agera在实际Android开发中使用    ##agera是什么 agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android S">
-<meta property="og:updated_time" content="2017-04-28T16:21:02.000Z">
+<meta property="og:description" content="agera是什么agera的基本用法1agera的基本用法2agera在实际Android开发中使用    agera是什么agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android SDK">
+<meta property="og:updated_time" content="2017-04-28T16:30:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android响应式框架之agera">
-<meta name="twitter:description" content="agera是什么agera的基本用法1agera的基本用法2agera在实际Android开发中使用    ##agera是什么 agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android S">
+<meta name="twitter:description" content="agera是什么agera的基本用法1agera的基本用法2agera在实际Android开发中使用    agera是什么agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android SDK">
 
 
 
@@ -317,12 +317,10 @@
 
       
         <p>agera是什么<br>agera的基本用法1<br>agera的基本用法2<br>agera在实际Android开发中使用   </p>
-<p>##agera是什么</p>
-<p>agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android SDK version 9 or higher.</p>
+<h2 id="agera是什么"><a href="#agera是什么" class="headerlink" title="agera是什么"></a>agera是什么</h2><p>agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android SDK version 9 or higher.</p>
 <p>翻译下：agera是一个能帮助Android开发者更好的开发函数式，异步和响应式程序的框架，要求Android的SDK版本在9以上。</p>
 <p>另外：它和RxJava一样，是基于观察者模式开发的。</p>
-<p>####agera的基本用法1</p>
-<p>1、首先定义被观察者</p>
+<h4 id="agera的基本用法1"><a href="#agera的基本用法1" class="headerlink" title="agera的基本用法1"></a>agera的基本用法1</h4><p>1、首先定义被观察者</p>
 <pre><code>public class MyData extends BaseObservable {
     private String data;//--------&gt;被观察者，数据源
 
@@ -383,11 +381,9 @@
     }
 }
 </code></pre><p>在EditText监听事件中，更改被观察者(数据源 MyData)，数据源改变后会通知所有观察者，在这里Activity作为观察者，执行Activity的update方法。</p>
-<p>####agera的基本用法2</p>
-<p>上面的代码中Observable和Updatable之间的通信，完全没有数据的存在，也就是说当Observable想要传递一些数据给Updatable的时候，通过这样的方式是没办法实现的。这也是Google故意而为之，他们的想法就是要让数据从Observable和Updatable中剥离。</p>
+<h4 id="agera的基本用法2"><a href="#agera的基本用法2" class="headerlink" title="agera的基本用法2"></a>agera的基本用法2</h4><p>上面的代码中Observable和Updatable之间的通信，完全没有数据的存在，也就是说当Observable想要传递一些数据给Updatable的时候，通过这样的方式是没办法实现的。这也是Google故意而为之，他们的想法就是要让数据从Observable和Updatable中剥离。</p>
 <p>从而达到他们所期望的：Push event,pull data model，不同于RxJava：Push data model。</p>
-<p>###但是：agera不是为观察者模式服务！！！！</p>
-<p>1、首先了解以下几个概念：</p>
+<h3 id="但是：agera不是为观察者模式服务！！！！"><a href="#但是：agera不是为观察者模式服务！！！！" class="headerlink" title="但是：agera不是为观察者模式服务！！！！"></a>但是：agera不是为观察者模式服务！！！！</h3><p>1、首先了解以下几个概念：</p>
 <p>(1) Observable：agera中的被观察者，用于在合适的时机去通知观察者进行更新。</p>
 <p>(2) Updatable：agera中的观察者，用于观察Observable。</p>
 <p>(3) Supplier：agera中提供数据的接口，通过范型指定数据类型，通过get()方法获取数据。</p>
@@ -431,8 +427,7 @@
     }
 }
 </code></pre><p>其中，当点击btn1时，将此事件通知到观察者：MainActivity，并执行其中update方法。</p>
-<p>####agera在实际Android开发中使用</p>
-<p>请查看以下代码即可了解：</p>
+<h4 id="agera在实际Android开发中使用"><a href="#agera在实际Android开发中使用" class="headerlink" title="agera在实际Android开发中使用"></a>agera在实际Android开发中使用</h4><p>请查看以下代码即可了解：</p>
 <pre><code>public class MainActivity extends AppCompatActivity implements Updatable{
 
 private Button observableBtn;
@@ -582,8 +577,17 @@ public static class ClickObservable extends BaseObservable implements View.OnCli
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -627,6 +631,22 @@ public static class ClickObservable extends BaseObservable implements View.OnCli
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#agera是什么"><span class="nav-number">1.</span> <span class="nav-text">agera是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#agera的基本用法1"><span class="nav-number">1.0.1.</span> <span class="nav-text">agera的基本用法1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#agera的基本用法2"><span class="nav-number">1.0.2.</span> <span class="nav-text">agera的基本用法2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#但是：agera不是为观察者模式服务！！！！"><span class="nav-number">1.1.</span> <span class="nav-text">但是：agera不是为观察者模式服务！！！！</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#agera在实际Android开发中使用"><span class="nav-number">1.1.1.</span> <span class="nav-text">agera在实际Android开发中使用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

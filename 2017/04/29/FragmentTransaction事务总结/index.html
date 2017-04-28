@@ -94,7 +94,7 @@
 <meta property="og:url" content="https://wyong2017.github.io/2017/04/29/FragmentTransaction事务总结/index.html">
 <meta property="og:site_name" content="W.Y">
 <meta property="og:description" content="看到一篇文章，里面是这么描述的，感觉很好： 在Android中，对Fragment的操作都是通过FragmentTransaction来执行。而从Fragment的结果来看，FragmentTransaction中对Fragment的操作大致可以分为两类： 显示：add() replace() show() attach()隐藏：remove() hide() detach()对于每一组方法，虽然">
-<meta property="og:updated_time" content="2017-04-28T16:11:27.000Z">
+<meta property="og:updated_time" content="2017-04-28T16:29:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FragmentTransaction事务总结">
 <meta name="twitter:description" content="看到一篇文章，里面是这么描述的，感觉很好： 在Android中，对Fragment的操作都是通过FragmentTransaction来执行。而从Fragment的结果来看，FragmentTransaction中对Fragment的操作大致可以分为两类： 显示：add() replace() show() attach()隐藏：remove() hide() detach()对于每一组方法，虽然">
@@ -319,15 +319,12 @@
         <p>看到一篇文章，里面是这么描述的，感觉很好：</p>
 <p>在Android中，对Fragment的操作都是通过FragmentTransaction来执行。而从Fragment的结果来看，FragmentTransaction中对Fragment的操作大致可以分为两类：</p>
 <p>显示：add() replace() show() attach()<br>隐藏：remove() hide() detach()<br>对于每一组方法，虽然最后产生的效果类似，但方法背后带来的副作用以及对Fragment的生命周期的影响都不尽相同。</p>
-<p>###add() vs. replace()</p>
-<p>只有在Fragment数量大于等于2的时候，调用add()还是replace()的区别才能体现出来。当通过add()连续两次添加Fragment的时候，每个Fragment生命周期中的onAttach()-onResume()都会被各调用一次，而且两个Fragment的View会被同时attach到containerView。</p>
+<h3 id="add-vs-replace"><a href="#add-vs-replace" class="headerlink" title="add() vs. replace()"></a>add() vs. replace()</h3><p>只有在Fragment数量大于等于2的时候，调用add()还是replace()的区别才能体现出来。当通过add()连续两次添加Fragment的时候，每个Fragment生命周期中的onAttach()-onResume()都会被各调用一次，而且两个Fragment的View会被同时attach到containerView。</p>
 <p>同样，退出Activty时，每个Fragment生命周期中的onPause()-onDetach()也会被各调用一次</p>
 <p>但当使用replace()来添加Fragment的时候，第二次添加会导致第一个Fragment被销毁，即执行第二个Fragment的onAttach()方法之前会先执行第一个Fragment的onPause()-onDetach()方法，同时containerView会detach第一个Fragment的View。</p>
-<p>###show() &amp; hide() vs. attach() &amp; detach()</p>
-<p>调用show() &amp; hide()方法时，Fragment的生命周期方法并不会被执行，仅仅是Fragment的View被显示或者​隐藏。而且，尽管Fragment的View被隐藏，但它在父布局中并未被detach，仍然是作为containerView的childView存在着。相比较下，attach() &amp; detach()做的就更彻底一些。一旦一个Fragment被detach()，它的onPause()-onDestroyView()周期都会被执行。</p>
+<h3 id="show-amp-hide-vs-attach-amp-detach"><a href="#show-amp-hide-vs-attach-amp-detach" class="headerlink" title="show() &amp; hide() vs. attach() &amp; detach()"></a>show() &amp; hide() vs. attach() &amp; detach()</h3><p>调用show() &amp; hide()方法时，Fragment的生命周期方法并不会被执行，仅仅是Fragment的View被显示或者​隐藏。而且，尽管Fragment的View被隐藏，但它在父布局中并未被detach，仍然是作为containerView的childView存在着。相比较下，attach() &amp; detach()做的就更彻底一些。一旦一个Fragment被detach()，它的onPause()-onDestroyView()周期都会被执行。</p>
 <p>同时Fragment的View也会被detach。在重新调用attach()后，onCreateView()-onResume()周期也会被再次执行。</p>
-<p>###remove()</p>
-<p>其实看完上面的分析，remove()方法基本也就明白了。相对应add()方法执行onAttach()-onResume()的生命周期，remove()就是完成剩下的onPause()-onDetach()周期。</p>
+<h3 id="remove"><a href="#remove" class="headerlink" title="remove()"></a>remove()</h3><p>其实看完上面的分析，remove()方法基本也就明白了。相对应add()方法执行onAttach()-onResume()的生命周期，remove()就是完成剩下的onPause()-onDetach()周期。</p>
 
       
     </div>
@@ -446,8 +443,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -491,6 +497,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#add-vs-replace"><span class="nav-number">1.</span> <span class="nav-text">add() vs. replace()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#show-amp-hide-vs-attach-amp-detach"><span class="nav-number">2.</span> <span class="nav-text">show() & hide() vs. attach() & detach()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove"><span class="nav-number">3.</span> <span class="nav-text">remove()</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
