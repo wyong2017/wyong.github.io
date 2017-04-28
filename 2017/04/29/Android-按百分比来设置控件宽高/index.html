@@ -1,0 +1,789 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android, wyong" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="添加支持库 dependencies {     compile &amp;apos;com.android.support:percent:22.2.0&amp;apos; } 支持的布局： PercentRelativeLayout  PercentFrameLayout 用法也很简单： 发布于2017年4月27日世界，您好！欢迎使用WordPress。这是您的第一篇文章。编辑或删除它，然后开始写作吧！ 发布">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 按百分比来设置控件宽高">
+<meta property="og:url" content="https://wyong2017.github.io/2017/04/29/Android-按百分比来设置控件宽高/index.html">
+<meta property="og:site_name" content="W.Y">
+<meta property="og:description" content="添加支持库 dependencies {     compile &amp;apos;com.android.support:percent:22.2.0&amp;apos; } 支持的布局： PercentRelativeLayout  PercentFrameLayout 用法也很简单： 发布于2017年4月27日世界，您好！欢迎使用WordPress。这是您的第一篇文章。编辑或删除它，然后开始写作吧！ 发布">
+<meta property="og:updated_time" content="2017-04-28T16:08:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 按百分比来设置控件宽高">
+<meta name="twitter:description" content="添加支持库 dependencies {     compile &amp;apos;com.android.support:percent:22.2.0&amp;apos; } 支持的布局： PercentRelativeLayout  PercentFrameLayout 用法也很简单： 发布于2017年4月27日世界，您好！欢迎使用WordPress。这是您的第一篇文章。编辑或删除它，然后开始写作吧！ 发布">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wyong2017.github.io/2017/04/29/Android-按百分比来设置控件宽高/"/>
+
+
+
+
+
+  <title> Android 按百分比来设置控件宽高 | W.Y </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">W.Y</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-essay">
+          <a href="/essay" rel="section">
+            
+            随便
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://wyong2017.github.io/2017/04/29/Android-按百分比来设置控件宽高/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wyong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="W.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android 按百分比来设置控件宽高
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-29T00:06:59+08:00">
+                2017-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>添加支持库</p>
+<pre><code>dependencies {
+    compile &apos;com.android.support:percent:22.2.0&apos;
+}
+</code></pre><p>支持的布局：</p>
+<p>PercentRelativeLayout  PercentFrameLayout</p>
+<p>用法也很简单：</p>
+<p>发布于2017年4月27日<br>世界，您好！<br>欢迎使用WordPress。这是您的第一篇文章。编辑或删除它，然后开始写作吧！</p>
+<p>发布于2016年11月24日<br>Tinker Bug<br>微信插件化框架Tinker导致代码dex泄露   </p>
+<p>android手机root之后，在目录/data/data/com.tencent.mm/app_dex目录下dex目录以及odex目录下的dex文件可以通过dex2jar反编译得到混淆后的代码。</p>
+<p>导致apk加固失效。</p>
+<p>发布于2016年7月11日<br>仿微信朋友圈-发红包看图片效果<br>代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius</p>
+<p>public class TouchImageView extends ImageView {<br>    private float radius = 70;<br>    private float blurDegree=200;<br>    private Paint paint = null;<br>    private Bitmap blurBitmap=null;</p>
+<pre><code>private float x;
+private float y;
+private boolean shouldDrawOpening = false;
+
+public TouchImageView(Context context) {
+    super(context);
+}
+
+public TouchImageView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+}
+
+public void setRadius(float radius) {
+    this.radius = radius;
+}
+public void setBlurDegree(float blurDegree){
+    this.blurDegree = blurDegree;
+}
+
+@Override
+public boolean onTouchEvent(MotionEvent motionEvent) {
+    int action = motionEvent.getAction();
+    shouldDrawOpening = (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE);
+    x = motionEvent.getX();
+    y = motionEvent.getY();
+    invalidate();
+    return true;
+}
+
+@Override
+protected void onDraw(Canvas canvas) {
+    if (paint == null || blurBitmap == null) {
+        //创建与ImageView相同大小的画布
+        Bitmap original = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas originalCanvas = new Canvas(original);
+
+        //第一次，新建canvas，并绘制。但是注意：再第二次调用onDraw方法时，不会绘制并且不会保存。
+        super.onDraw(originalCanvas);
+
+        //根据原始图片创建Shader，画笔将按照原始图片画图。
+        Shader shader = new BitmapShader(original, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        paint = new Paint();
+        paint.setShader(shader);
+
+        //创建模糊图片
+        blurBitmap = blur(original, blurDegree);
+    }
+    //将模糊图片绘制在ImageView原始画布上
+    canvas.drawBitmap(blurBitmap, 0, 0, paint);
+    if (shouldDrawOpening) {
+        //根据原始图片以及Shader，画笔按照原始图片画圆
+        canvas.drawCircle(x, y - radius, radius, paint);
+    }
+}
+
+private Bitmap blur(Bitmap original, float radius) {
+    Bitmap bitmap = Bitmap.createBitmap(original);
+    return Blur.fastBlur(bitmap, (int) radius, true);
+}
+</code></pre><p>}<br>效果如图：</p>
+<p>image</p>
+<p>发布于2016年7月4日<br>提升Android Studio编译速度<br>开启gradle单独的守护进程</p>
+<p>主要作用：增大GRADLE运行的JAVA虚拟机的大小，让GRADLE在编译的时候使用独立进程。</p>
+<p>在gradle的配置目录下面创建gradle.properties文件：</p>
+<p>/home/<username>/.gradle/ (Linux)<br>/Users/<username>/.gradle/ (Mac)<br>C:\Users\<username>.gradle (Windows)<br>文件内容如下：</username></username></username></p>
+<h1 id="Project-wide-Gradle-settings"><a href="#Project-wide-Gradle-settings" class="headerlink" title="Project-wide Gradle settings."></a>Project-wide Gradle settings.</h1><h1 id="IDE-e-g-Android-Studio-users"><a href="#IDE-e-g-Android-Studio-users" class="headerlink" title="IDE (e.g. Android Studio) users:"></a>IDE (e.g. Android Studio) users:</h1><h1 id="Settings-specified-in-this-file-will-override-any-Gradle-settings"><a href="#Settings-specified-in-this-file-will-override-any-Gradle-settings" class="headerlink" title="Settings specified in this file will override any Gradle settings"></a>Settings specified in this file will override any Gradle settings</h1><h1 id="configured-through-the-IDE"><a href="#configured-through-the-IDE" class="headerlink" title="configured through the IDE."></a>configured through the IDE.</h1><h1 id="For-more-details-on-how-to-configure-your-build-environment-visit"><a href="#For-more-details-on-how-to-configure-your-build-environment-visit" class="headerlink" title="For more details on how to configure your build environment visit"></a>For more details on how to configure your build environment visit</h1><h1 id="http-www-gradle-org-docs-current-userguide-build-environment-html"><a href="#http-www-gradle-org-docs-current-userguide-build-environment-html" class="headerlink" title="http://www.gradle.org/docs/current/userguide/build_environment.html"></a><a href="http://www.gradle.org/docs/current/userguide/build_environment.html" target="_blank" rel="external">http://www.gradle.org/docs/current/userguide/build_environment.html</a></h1><h1 id="The-Gradle-daemon-aims-to-improve-the-startup-and-execution-time-of-Gradle"><a href="#The-Gradle-daemon-aims-to-improve-the-startup-and-execution-time-of-Gradle" class="headerlink" title="The Gradle daemon aims to improve the startup and execution time of Gradle."></a>The Gradle daemon aims to improve the startup and execution time of Gradle.</h1><h1 id="When-set-to-true-the-Gradle-daemon-is-to-run-the-build"><a href="#When-set-to-true-the-Gradle-daemon-is-to-run-the-build" class="headerlink" title="When set to true the Gradle daemon is to run the build."></a>When set to true the Gradle daemon is to run the build.</h1><h1 id="TODO-disable-daemon-on-CI-since-builds-should-be-clean-and-reliable-on-servers"><a href="#TODO-disable-daemon-on-CI-since-builds-should-be-clean-and-reliable-on-servers" class="headerlink" title="TODO: disable daemon on CI, since builds should be clean and reliable on servers"></a>TODO: disable daemon on CI, since builds should be clean and reliable on servers</h1><p>org.gradle.daemon=true</p>
+<h1 id="Specifies-the-JVM-arguments-used-for-the-daemon-process"><a href="#Specifies-the-JVM-arguments-used-for-the-daemon-process" class="headerlink" title="Specifies the JVM arguments used for the daemon process."></a>Specifies the JVM arguments used for the daemon process.</h1><h1 id="The-setting-is-particularly-useful-for-tweaking-memory-settings"><a href="#The-setting-is-particularly-useful-for-tweaking-memory-settings" class="headerlink" title="The setting is particularly useful for tweaking memory settings."></a>The setting is particularly useful for tweaking memory settings.</h1><h1 id="Default-value-Xmx10248m-XX-MaxPermSize-256m"><a href="#Default-value-Xmx10248m-XX-MaxPermSize-256m" class="headerlink" title="Default value: -Xmx10248m -XX:MaxPermSize=256m"></a>Default value: -Xmx10248m -XX:MaxPermSize=256m</h1><p>org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8</p>
+<h1 id="When-configured-Gradle-will-run-in-incubating-parallel-mode"><a href="#When-configured-Gradle-will-run-in-incubating-parallel-mode" class="headerlink" title="When configured, Gradle will run in incubating parallel mode."></a>When configured, Gradle will run in incubating parallel mode.</h1><h1 id="This-option-should-only-be-used-with-decoupled-projects-More-details-visit"><a href="#This-option-should-only-be-used-with-decoupled-projects-More-details-visit" class="headerlink" title="This option should only be used with decoupled projects. More details, visit"></a>This option should only be used with decoupled projects. More details, visit</h1><h1 id="http-www-gradle-org-docs-current-userguide-multi-project-builds-html-sec-decoupled-projects"><a href="#http-www-gradle-org-docs-current-userguide-multi-project-builds-html-sec-decoupled-projects" class="headerlink" title="http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects"></a><a href="http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects" target="_blank" rel="external">http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects</a></h1><p>org.gradle.parallel=true</p>
+<h1 id="Enables-new-incubating-mode-that-makes-Gradle-selective-when-configuring-projects"><a href="#Enables-new-incubating-mode-that-makes-Gradle-selective-when-configuring-projects" class="headerlink" title="Enables new incubating mode that makes Gradle selective when configuring projects."></a>Enables new incubating mode that makes Gradle selective when configuring projects.</h1><h1 id="Only-relevant-projects-are-configured-which-results-in-faster-builds-for-large-multi-projects"><a href="#Only-relevant-projects-are-configured-which-results-in-faster-builds-for-large-multi-projects" class="headerlink" title="Only relevant projects are configured which results in faster builds for large multi-projects."></a>Only relevant projects are configured which results in faster builds for large multi-projects.</h1><h1 id="http-www-gradle-org-docs-current-userguide-multi-project-builds-html-sec-configuration-on-demand"><a href="#http-www-gradle-org-docs-current-userguide-multi-project-builds-html-sec-configuration-on-demand" class="headerlink" title="http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand"></a><a href="http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand" target="_blank" rel="external">http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand</a></h1><p>org.gradle.configureondemand=true<br>修改android studio配置</p>
+<p>在android studio的配置中，开启offline模式，以及修改配置。</p>
+<p>image</p>
+<p>image</p>
+<p>发布于2016年6月28日<br>Volley结合OkHttp一起使用<br>本文仅介绍Volley与OkHttp如何一起使用，具体各自有哪些优点请参考：xxx</p>
+<p>使用前需要引用如下2个包：</p>
+<p>compile ‘com.squareup.okhttp3:okhttp:3.3.1’<br>compile ‘com.squareup.okhttp3:okhttp-urlconnection:3.3.1’<br>首先，写自己的OkHttpStack</p>
+<p>public class OKHttpStack extends HurlStack {<br>    private OkHttpClient okHttpClient;<br>    public OKHttpStack(){<br>        this(new OkHttpClient());<br>    }<br>    public OKHttpStack(OkHttpClient okHttpClient){<br>        this.okHttpClient = okHttpClient;<br>    }</p>
+<pre><code>@Override
+protected HttpURLConnection createConnection(URL url) throws IOException {
+    OkUrlFactory okUrlFactory = new OkUrlFactory(okHttpClient);
+    return okUrlFactory.open(url);
+}
+</code></pre><p>}<br>其次，在初始化Volley的地方，使用此OkHttpStack</p>
+<p>Network network = new BasicNetwork(new OKHttpStack(), HTTP.UTF_8);</p>
+<p>// 设置缓冲池、缓存目录、缓存大小<br>mQueue = new RequestQueue(network, THREADPOOLSIZE, new DiskCache(<br>      mCacheFile, FILECACHESIZE));<br>// start and waiting requests.<br>mQueue.start();<br>发布于2016年6月24日<br>Android 按百分比来设置控件宽高<br>添加支持库</p>
+<p>dependencies {<br>    compile ‘com.android.support:percent:22.2.0’<br>}<br>支持的布局：</p>
+<p>PercentRelativeLayout  PercentFrameLayout</p>
+<p>用法也很简单：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.percent.PercentRelativeLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+android:orientation=&quot;vertical&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;&gt;
+
+&lt;Button
+    android:id=&quot;@+id/button1&quot;
+    android:layout_width=&quot;0dp&quot;
+    android:layout_height=&quot;0dp&quot;
+    android:text=&quot;click&quot;
+    app:layout_heightPercent=&quot;10%&quot;
+    app:layout_widthPercent=&quot;50%&quot; /&gt;
+
+&lt;/android.support.percent.PercentRelativeLayout&gt;
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qrcode.jpg" alt="wyong wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎关注，不定期推送任意内容。</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-pay.png" alt="wyong WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/29/Android-Touch事件的传递机制/" rel="next" title="Android Touch事件的传递机制">
+                <i class="fa fa-chevron-left"></i> Android Touch事件的传递机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/29/Volley结合OkHttp一起使用/" rel="prev" title="Volley结合OkHttp一起使用">
+                Volley结合OkHttp一起使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="wyong" />
+          <p class="site-author-name" itemprop="name">wyong</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Project-wide-Gradle-settings"><span class="nav-number">1.</span> <span class="nav-text">Project-wide Gradle settings.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IDE-e-g-Android-Studio-users"><span class="nav-number">2.</span> <span class="nav-text">IDE (e.g. Android Studio) users:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Settings-specified-in-this-file-will-override-any-Gradle-settings"><span class="nav-number">3.</span> <span class="nav-text">Settings specified in this file will override any Gradle settings</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#configured-through-the-IDE"><span class="nav-number">4.</span> <span class="nav-text">configured through the IDE.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#For-more-details-on-how-to-configure-your-build-environment-visit"><span class="nav-number">5.</span> <span class="nav-text">For more details on how to configure your build environment visit</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http-www-gradle-org-docs-current-userguide-build-environment-html"><span class="nav-number">6.</span> <span class="nav-text">http://www.gradle.org/docs/current/userguide/build_environment.html</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-Gradle-daemon-aims-to-improve-the-startup-and-execution-time-of-Gradle"><span class="nav-number">7.</span> <span class="nav-text">The Gradle daemon aims to improve the startup and execution time of Gradle.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#When-set-to-true-the-Gradle-daemon-is-to-run-the-build"><span class="nav-number">8.</span> <span class="nav-text">When set to true the Gradle daemon is to run the build.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TODO-disable-daemon-on-CI-since-builds-should-be-clean-and-reliable-on-servers"><span class="nav-number">9.</span> <span class="nav-text">TODO: disable daemon on CI, since builds should be clean and reliable on servers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Specifies-the-JVM-arguments-used-for-the-daemon-process"><span class="nav-number">10.</span> <span class="nav-text">Specifies the JVM arguments used for the daemon process.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-setting-is-particularly-useful-for-tweaking-memory-settings"><span class="nav-number">11.</span> <span class="nav-text">The setting is particularly useful for tweaking memory settings.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Default-value-Xmx10248m-XX-MaxPermSize-256m"><span class="nav-number">12.</span> <span class="nav-text">Default value: -Xmx10248m -XX:MaxPermSize=256m</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#When-configured-Gradle-will-run-in-incubating-parallel-mode"><span class="nav-number">13.</span> <span class="nav-text">When configured, Gradle will run in incubating parallel mode.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#This-option-should-only-be-used-with-decoupled-projects-More-details-visit"><span class="nav-number">14.</span> <span class="nav-text">This option should only be used with decoupled projects. More details, visit</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http-www-gradle-org-docs-current-userguide-multi-project-builds-html-sec-decoupled-projects"><span class="nav-number">15.</span> <span class="nav-text">http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Enables-new-incubating-mode-that-makes-Gradle-selective-when-configuring-projects"><span class="nav-number">16.</span> <span class="nav-text">Enables new incubating mode that makes Gradle selective when configuring projects.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Only-relevant-projects-are-configured-which-results-in-faster-builds-for-large-multi-projects"><span class="nav-number">17.</span> <span class="nav-text">Only relevant projects are configured which results in faster builds for large multi-projects.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http-www-gradle-org-docs-current-userguide-multi-project-builds-html-sec-configuration-on-demand"><span class="nav-number">18.</span> <span class="nav-text">http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wyong</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2132207"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

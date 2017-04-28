@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius public class TouchImageView extends ImageView { private float radius = 70; private float blurDegree=200; private Paint p">
+<meta name="description" content="agera是什么agera的基本用法1agera的基本用法2agera在实际Android开发中使用    ##agera是什么 agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android S">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="仿微信朋友圈-发红包看图片效果">
-<meta property="og:url" content="https://wyong2017.github.io/2017/04/28/仿微信朋友圈-发红包看图片效果/index.html">
+<meta property="og:title" content="android响应式框架之agera">
+<meta property="og:url" content="https://wyong2017.github.io/2017/04/29/android响应式框架之agera/index.html">
 <meta property="og:site_name" content="W.Y">
-<meta property="og:description" content="代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius public class TouchImageView extends ImageView { private float radius = 70; private float blurDegree=200; private Paint p">
-<meta property="og:updated_time" content="2017-04-28T15:37:23.000Z">
+<meta property="og:description" content="agera是什么agera的基本用法1agera的基本用法2agera在实际Android开发中使用    ##agera是什么 agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android S">
+<meta property="og:updated_time" content="2017-04-28T16:21:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="仿微信朋友圈-发红包看图片效果">
-<meta name="twitter:description" content="代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius public class TouchImageView extends ImageView { private float radius = 70; private float blurDegree=200; private Paint p">
+<meta name="twitter:title" content="android响应式框架之agera">
+<meta name="twitter:description" content="agera是什么agera的基本用法1agera的基本用法2agera在实际Android开发中使用    ##agera是什么 agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android S">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://wyong2017.github.io/2017/04/28/仿微信朋友圈-发红包看图片效果/"/>
+  <link rel="canonical" href="https://wyong2017.github.io/2017/04/29/android响应式框架之agera/"/>
 
 
 
 
 
-  <title> 仿微信朋友圈-发红包看图片效果 | W.Y </title>
+  <title> android响应式框架之agera | W.Y </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -244,7 +244,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://wyong2017.github.io/2017/04/28/仿微信朋友圈-发红包看图片效果/">
+    <link itemprop="mainEntityOfPage" href="https://wyong2017.github.io/2017/04/29/android响应式框架之agera/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wyong">
@@ -265,7 +265,7 @@
             
             
               
-                仿微信朋友圈-发红包看图片效果
+                android响应式框架之agera
               
             
           </h1>
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-28T23:33:55+08:00">
-                2017-04-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-29T00:16:36+08:00">
+                2017-04-29
               </time>
             
 
@@ -316,74 +316,159 @@
       
 
       
-        <p>代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius</p>
-<pre><code>public class TouchImageView extends ImageView {
-private float radius = 70;
-private float blurDegree=200;
-private Paint paint = null;
-private Bitmap blurBitmap=null;
+        <p>agera是什么<br>agera的基本用法1<br>agera的基本用法2<br>agera在实际Android开发中使用   </p>
+<p>##agera是什么</p>
+<p>agera is a set of classes and interfaces to help wirte functional,asynchronous and reactive applications for Android.Requires Android SDK version 9 or higher.</p>
+<p>翻译下：agera是一个能帮助Android开发者更好的开发函数式，异步和响应式程序的框架，要求Android的SDK版本在9以上。</p>
+<p>另外：它和RxJava一样，是基于观察者模式开发的。</p>
+<p>####agera的基本用法1</p>
+<p>1、首先定义被观察者</p>
+<pre><code>public class MyData extends BaseObservable {
+    private String data;//--------&gt;被观察者，数据源
 
-private float x;
-private float y;
-private boolean shouldDrawOpening = false;
+    public String getData() {
+        return data;
+    }
 
-public TouchImageView(Context context) {
-    super(context);
+    public void setData(String data) {
+        this.data = data;
+        dispatchUpdate();//-------&gt;data变化后调用此方法通知所有观察者
+    }
 }
+</code></pre><p>2、定义观察者—这里我们把Activity作为观察者</p>
+<pre><code>public class MainActivity3 extends EActivity implements Updatable{
+    private EditText text1;
+    private TextView text2;
+    private MyData myData;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_activity3);
+        text1 = (EditText) findViewById(R.id.text1);
+        text2 = (TextView) findViewById(R.id.text2);
+        myData = new MyData();
+        text1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence!=null){
+                    myData.setData(charSequence.toString());
+                }else{
+                    myData.setData(&quot;&quot;);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+    }
 
-public TouchImageView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myData.addUpdatable(this);
+    }
 
-public void setRadius(float radius) {
-    this.radius = radius;
+    @Override
+    protected void onPause() {
+        super.onPause();
+        myData.removeUpdatable(this);
+    }
+
+    @Override
+    public void update() {
+        text2.setText(myData.getData());
+    }
 }
-public void setBlurDegree(float blurDegree){
-    this.blurDegree = blurDegree;
+</code></pre><p>在EditText监听事件中，更改被观察者(数据源 MyData)，数据源改变后会通知所有观察者，在这里Activity作为观察者，执行Activity的update方法。</p>
+<p>####agera的基本用法2</p>
+<p>上面的代码中Observable和Updatable之间的通信，完全没有数据的存在，也就是说当Observable想要传递一些数据给Updatable的时候，通过这样的方式是没办法实现的。这也是Google故意而为之，他们的想法就是要让数据从Observable和Updatable中剥离。</p>
+<p>从而达到他们所期望的：Push event,pull data model，不同于RxJava：Push data model。</p>
+<p>###但是：agera不是为观察者模式服务！！！！</p>
+<p>1、首先了解以下几个概念：</p>
+<p>(1) Observable：agera中的被观察者，用于在合适的时机去通知观察者进行更新。</p>
+<p>(2) Updatable：agera中的观察者，用于观察Observable。</p>
+<p>(3) Supplier：agera中提供数据的接口，通过范型指定数据类型，通过get()方法获取数据。</p>
+<p>(4) Repository：继承自Observable、Supplier。称作：提供数据的被观察者。</p>
+<p>2、结合以下代码看一下：</p>
+<pre><code>public class MainActivity3 extends EActivity implements Updatable {
+    private Button btn1;
+    private TextView text2;
+    private Supplier&lt;String&gt; supplier = new Supplier&lt;String&gt;() {
+        @NonNull
+        @Override
+        public String get() {
+            return btn1.getText().toString();
+        }
+    };
+
+    private Repository&lt;String&gt; repository = Repositories.repositoryWithInitialValue(&quot;a&quot;)
+            .observe()
+            .onUpdatesPerLoop()
+            .thenGetFrom(supplier)
+            .compile();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_activity3);
+        btn1 = (Button) findViewById(R.id.button1);
+        text2 = (TextView) findViewById(R.id.text2);
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                repository.addUpdatable(MainActivity3.this);
+            }
+        });
+
+    }
+
+    @Override
+    public void update() {
+        text2.setText(supplier.get());
+    }
+}
+</code></pre><p>其中，当点击btn1时，将此事件通知到观察者：MainActivity，并执行其中update方法。</p>
+<p>####agera在实际Android开发中使用</p>
+<p>请查看以下代码即可了解：</p>
+<pre><code>public class MainActivity extends AppCompatActivity implements Updatable{
+
+private Button observableBtn;
+private TextView show;
+
+private ClickObservable clickObservable;
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    observableBtn = (Button)findViewById(R.id.observable_btn);
+    show = (TextView)findViewById(R.id.show);
+
+    clickObservable = new ClickObservable();
+    clickObservable.addUpdatable(this);
+    observableBtn.setOnClickListener(clickObservable);
 }
 
 @Override
-public boolean onTouchEvent(MotionEvent motionEvent) {
-    int action = motionEvent.getAction();
-    shouldDrawOpening = (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE);
-    x = motionEvent.getX();
-    y = motionEvent.getY();
-    invalidate();
-    return true;
+public void update() {
+    show.setText(&quot;update!!&quot;);
 }
 
-@Override
-protected void onDraw(Canvas canvas) {
-    if (paint == null || blurBitmap == null) {
-        //创建与ImageView相同大小的画布
-        Bitmap original = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas originalCanvas = new Canvas(original);
+public static class ClickObservable extends BaseObservable implements View.OnClickListener{
 
-        //第一次，新建canvas，并绘制。但是注意：再第二次调用onDraw方法时，不会绘制并且不会保存。
-        super.onDraw(originalCanvas);
-
-        //根据原始图片创建Shader，画笔将按照原始图片画图。
-        Shader shader = new BitmapShader(original, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        paint = new Paint();
-        paint.setShader(shader);
-
-        //创建模糊图片
-        blurBitmap = blur(original, blurDegree);
-    }
-    //将模糊图片绘制在ImageView原始画布上
-    canvas.drawBitmap(blurBitmap, 0, 0, paint);
-    if (shouldDrawOpening) {
-        //根据原始图片以及Shader，画笔按照原始图片画圆
-        canvas.drawCircle(x, y - radius, radius, paint);
+    @Override
+    public void onClick(View v) {
+        dispatchUpdate();
     }
 }
+}
+</code></pre><p>其他难点：</p>
+<p>整个Repository数据处理流的过程</p>
+<p>操作符   Function   Attempt   Result   Receiver   Reservoir</p>
 
-private Bitmap blur(Bitmap original, float radius) {
-    Bitmap bitmap = Bitmap.createBitmap(original);
-    return Blur.fastBlur(bitmap, (int) radius, true);
-}
-}
-</code></pre>
       
     </div>
 
@@ -440,15 +525,15 @@ private Bitmap blur(Bitmap original, float radius) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/29/提升Android-Studio编译速度/" rel="next" title="提升Android Studio编译速度">
-                <i class="fa fa-chevron-left"></i> 提升Android Studio编译速度
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/29/java排序算法/" rel="prev" title="java排序算法">
+                java排序算法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>

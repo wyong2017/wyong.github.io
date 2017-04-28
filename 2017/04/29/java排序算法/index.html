@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius public class TouchImageView extends ImageView { private float radius = 70; private float blurDegree=200; private Paint p">
+<meta name="description" content="public class SortUtil {  /**   * 冒泡排序&amp;lt;br/&amp;gt;   *   * @param a   */  public static void maopaoSort(int[] a) {     for (int i = a.length - 1; i &amp;gt;= 0; i--) {        for (int j = 0; j &amp;lt; i; j++)">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="仿微信朋友圈-发红包看图片效果">
-<meta property="og:url" content="https://wyong2017.github.io/2017/04/28/仿微信朋友圈-发红包看图片效果/index.html">
+<meta property="og:title" content="java排序算法">
+<meta property="og:url" content="https://wyong2017.github.io/2017/04/29/java排序算法/index.html">
 <meta property="og:site_name" content="W.Y">
-<meta property="og:description" content="代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius public class TouchImageView extends ImageView { private float radius = 70; private float blurDegree=200; private Paint p">
-<meta property="og:updated_time" content="2017-04-28T15:37:23.000Z">
+<meta property="og:description" content="public class SortUtil {  /**   * 冒泡排序&amp;lt;br/&amp;gt;   *   * @param a   */  public static void maopaoSort(int[] a) {     for (int i = a.length - 1; i &amp;gt;= 0; i--) {        for (int j = 0; j &amp;lt; i; j++)">
+<meta property="og:updated_time" content="2017-04-28T16:16:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="仿微信朋友圈-发红包看图片效果">
-<meta name="twitter:description" content="代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius public class TouchImageView extends ImageView { private float radius = 70; private float blurDegree=200; private Paint p">
+<meta name="twitter:title" content="java排序算法">
+<meta name="twitter:description" content="public class SortUtil {  /**   * 冒泡排序&amp;lt;br/&amp;gt;   *   * @param a   */  public static void maopaoSort(int[] a) {     for (int i = a.length - 1; i &amp;gt;= 0; i--) {        for (int j = 0; j &amp;lt; i; j++)">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://wyong2017.github.io/2017/04/28/仿微信朋友圈-发红包看图片效果/"/>
+  <link rel="canonical" href="https://wyong2017.github.io/2017/04/29/java排序算法/"/>
 
 
 
 
 
-  <title> 仿微信朋友圈-发红包看图片效果 | W.Y </title>
+  <title> java排序算法 | W.Y </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -244,7 +244,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://wyong2017.github.io/2017/04/28/仿微信朋友圈-发红包看图片效果/">
+    <link itemprop="mainEntityOfPage" href="https://wyong2017.github.io/2017/04/29/java排序算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wyong">
@@ -265,7 +265,7 @@
             
             
               
-                仿微信朋友圈-发红包看图片效果
+                java排序算法
               
             
           </h1>
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-28T23:33:55+08:00">
-                2017-04-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-29T00:14:27+08:00">
+                2017-04-29
               </time>
             
 
@@ -316,73 +316,115 @@
       
 
       
-        <p>代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius</p>
-<pre><code>public class TouchImageView extends ImageView {
-private float radius = 70;
-private float blurDegree=200;
-private Paint paint = null;
-private Bitmap blurBitmap=null;
-
-private float x;
-private float y;
-private boolean shouldDrawOpening = false;
-
-public TouchImageView(Context context) {
-    super(context);
-}
-
-public TouchImageView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-}
-
-public void setRadius(float radius) {
-    this.radius = radius;
-}
-public void setBlurDegree(float blurDegree){
-    this.blurDegree = blurDegree;
-}
-
-@Override
-public boolean onTouchEvent(MotionEvent motionEvent) {
-    int action = motionEvent.getAction();
-    shouldDrawOpening = (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE);
-    x = motionEvent.getX();
-    y = motionEvent.getY();
-    invalidate();
-    return true;
-}
-
-@Override
-protected void onDraw(Canvas canvas) {
-    if (paint == null || blurBitmap == null) {
-        //创建与ImageView相同大小的画布
-        Bitmap original = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas originalCanvas = new Canvas(original);
-
-        //第一次，新建canvas，并绘制。但是注意：再第二次调用onDraw方法时，不会绘制并且不会保存。
-        super.onDraw(originalCanvas);
-
-        //根据原始图片创建Shader，画笔将按照原始图片画图。
-        Shader shader = new BitmapShader(original, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        paint = new Paint();
-        paint.setShader(shader);
-
-        //创建模糊图片
-        blurBitmap = blur(original, blurDegree);
+        <pre><code>public class SortUtil {
+ /**
+  * 冒泡排序&lt;br/&gt;
+  *
+  * @param a
+  */
+ public static void maopaoSort(int[] a) {
+    for (int i = a.length - 1; i &gt;= 0; i--) {
+       for (int j = 0; j &lt; i; j++) {
+          if (a[j] &gt; a[j + 1]) {
+             int tmp = a[j];
+             a[j] = a[j + 1];
+             a[j + 1] = tmp;
+          }
+       }
     }
-    //将模糊图片绘制在ImageView原始画布上
-    canvas.drawBitmap(blurBitmap, 0, 0, paint);
-    if (shouldDrawOpening) {
-        //根据原始图片以及Shader，画笔按照原始图片画圆
-        canvas.drawCircle(x, y - radius, radius, paint);
-    }
-}
+ }
 
-private Bitmap blur(Bitmap original, float radius) {
-    Bitmap bitmap = Bitmap.createBitmap(original);
-    return Blur.fastBlur(bitmap, (int) radius, true);
-}
-}
+ /**
+  * 插入排序&lt;br/&gt;
+  * &lt;ul&gt;
+  * &lt;li&gt;从第一个元素开始，该元素可以认为已经被排序&lt;/li&gt;
+  * &lt;li&gt;取出下一个元素，在已经排序的元素序列中从后向前扫描&lt;/li&gt;
+  * &lt;li&gt;如果该元素（已排序）大于新元素，将该元素移到下一位置&lt;/li&gt;
+  * &lt;li&gt;重复步骤3，直到找到已排序的元素小于或者等于新元素的位置&lt;/li&gt;
+  * &lt;li&gt;将新元素插入到该位置中&lt;/li&gt;
+  * &lt;li&gt;重复步骤2&lt;/li&gt;
+  * &lt;/ul&gt;
+  *
+  * @param a
+  */
+ public static void insertSort(int[] a) {
+    for (int i = 1; i &lt; a.length; i++) {
+       int tmp = a[i];
+       int j;
+       for (j = i; j &gt; 0 &amp;&amp; tmp &lt; a[j - 1]; j--) {
+          a[j] = a[j - 1];
+       }
+       a[j] = tmp;
+    }
+ }
+
+ /**
+  * 快速排序&lt;br/&gt;
+  * &lt;ul&gt;
+  * &lt;li&gt;取第一个元素作为key&lt;/li&gt;
+  * &lt;li&gt;从后向前扫描序列，直到找到比当前key小的值，并做交换&lt;/li&gt;
+  * &lt;li&gt;从前向后扫描序列，直到找到比当前key大的值，并做交换，并记录当前位置（此时左边&lt;key&lt;右边）&lt;/li&gt;
+  * &lt;li&gt;以key位置分成2个数组，重复123&lt;/li&gt;
+  * &lt;li&gt;当每个数组剩余1个元素时，序列已经排好序&lt;/li&gt;
+  * &lt;/ul&gt;
+  *
+  * @param a
+  */
+ public static void quickSort(int[] a) {
+    qsort(a, 0, a.length - 1);
+ }
+
+ private static void qsort(int[] a, int left, int right) {
+    if (left &lt; right) {
+       int p = get(a, left, right);
+       qsort(a, left, p - 1);
+       qsort(a, p + 1, right);
+    }
+ }
+
+ private static int get(int[] a, int left, int right) {
+    int key = a[left];
+    while (left &lt; right) {
+       while (left &lt; right &amp;&amp; a[right] &gt;= key) {
+          right--;
+       }
+       int tmp = a[left];
+       a[left] = a[right];
+       a[right] = tmp;
+       while (left &lt; right &amp;&amp; a[left] &lt;= key) {
+          left++;
+       }
+       int tmp2 = a[left];
+       a[left] = a[right];
+       a[right] = tmp2;
+    }
+    return left;
+ }
+
+ /**
+  * 选择排序&lt;br/&gt;
+  * &lt;ul&gt;
+  * &lt;li&gt;默认第一个元素为排好序的元素&lt;/li&gt;
+  * &lt;li&gt;从第二个元素开始，将元素插入到前面已经排好序的数组中&lt;/li&gt;
+  * &lt;/ul&gt;
+  *
+  * @param a
+  */
+ public static void selectSort(int[] a) {
+    for (int i = 0; i &lt; a.length; i++) {
+       int low = i;
+       for (int j = i + 1; j &lt; a.length; j++) {
+          if (a[j] &lt; a[low]) {
+             low = j;
+          }
+       }
+       int tmp = a[i];
+       a[i] = a[low];
+       a[low] = tmp;
+    }
+ }
+
+  }
 </code></pre>
       
     </div>
@@ -440,8 +482,8 @@ private Bitmap blur(Bitmap original, float radius) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/29/提升Android-Studio编译速度/" rel="next" title="提升Android Studio编译速度">
-                <i class="fa fa-chevron-left"></i> 提升Android Studio编译速度
+              <a href="/2017/04/29/android响应式框架之agera/" rel="next" title="android响应式框架之agera">
+                <i class="fa fa-chevron-left"></i> android响应式框架之agera
               </a>
             
           </div>
@@ -449,6 +491,10 @@ private Bitmap blur(Bitmap original, float radius) {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/29/ListView-ScrollView等弹性效果/" rel="prev" title="ListView ScrollView等弹性效果">
+                ListView ScrollView等弹性效果 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>

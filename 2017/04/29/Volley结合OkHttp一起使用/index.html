@@ -87,13 +87,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="https://wyong2017.github.io/about/index.html">
+<meta name="description" content="本文仅介绍Volley与OkHttp如何一起使用，具体各自有哪些优点请参考：xxx 使用前需要引用如下2个包：   compile &amp;apos;com.squareup.okhttp3:okhttp:3.3.1&amp;apos; compile &amp;apos;com.squareup.okhttp3:okhttp-urlconnection:3.3.1&amp;apos; 首先，写自己的OkHttpStack p">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Volley结合OkHttp一起使用">
+<meta property="og:url" content="https://wyong2017.github.io/2017/04/29/Volley结合OkHttp一起使用/index.html">
 <meta property="og:site_name" content="W.Y">
-<meta property="og:updated_time" content="2017-04-28T05:48:06.000Z">
+<meta property="og:description" content="本文仅介绍Volley与OkHttp如何一起使用，具体各自有哪些优点请参考：xxx 使用前需要引用如下2个包：   compile &amp;apos;com.squareup.okhttp3:okhttp:3.3.1&amp;apos; compile &amp;apos;com.squareup.okhttp3:okhttp-urlconnection:3.3.1&amp;apos; 首先，写自己的OkHttpStack p">
+<meta property="og:updated_time" content="2017-04-28T16:06:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
+<meta name="twitter:title" content="Volley结合OkHttp一起使用">
+<meta name="twitter:description" content="本文仅介绍Volley与OkHttp如何一起使用，具体各自有哪些优点请参考：xxx 使用前需要引用如下2个包：   compile &amp;apos;com.squareup.okhttp3:okhttp:3.3.1&amp;apos; compile &amp;apos;com.squareup.okhttp3:okhttp-urlconnection:3.3.1&amp;apos; 首先，写自己的OkHttpStack p">
 
 
 
@@ -121,19 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://wyong2017.github.io/about/"/>
+  <link rel="canonical" href="https://wyong2017.github.io/2017/04/29/Volley结合OkHttp一起使用/"/>
 
 
 
 
 
-  <title>
-  
-
-  
-    about | W.Y
-  
-</title>
+  <title> Volley结合OkHttp一起使用 | W.Y </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -158,7 +156,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,18 +235,200 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">about</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://wyong2017.github.io/2017/04/29/Volley结合OkHttp一起使用/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wyong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="W.Y">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Volley结合OkHttp一起使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-29T00:04:06+08:00">
+                2017-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-    
+      
+
+      
+        <p>本文仅介绍Volley与OkHttp如何一起使用，具体各自有哪些优点请参考：xxx</p>
+<p>使用前需要引用如下2个包：  </p>
+<pre><code>compile &apos;com.squareup.okhttp3:okhttp:3.3.1&apos;
+compile &apos;com.squareup.okhttp3:okhttp-urlconnection:3.3.1&apos;
+</code></pre><p>首先，写自己的OkHttpStack</p>
+<pre><code>public class OKHttpStack extends HurlStack {
+    private OkHttpClient okHttpClient;
+    public OKHttpStack(){
+        this(new OkHttpClient());
+    }
+    public OKHttpStack(OkHttpClient okHttpClient){
+        this.okHttpClient = okHttpClient;
+    }
+
+    @Override
+    protected HttpURLConnection createConnection(URL url) throws IOException {
+        OkUrlFactory okUrlFactory = new     OkUrlFactory(okHttpClient);
+        return okUrlFactory.open(url);
+    }
+}
+</code></pre><p>其次，在初始化Volley的地方，使用此OkHttpStack</p>
+<pre><code>Network network = new BasicNetwork(new OKHttpStack(), HTTP.UTF_8);
+
+// 设置缓冲池、缓存目录、缓存大小
+mQueue = new RequestQueue(network, THREADPOOLSIZE, new DiskCache(
+  mCacheFile, FILECACHESIZE));
+// start and waiting requests.
+mQueue.start();
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qrcode.jpg" alt="wyong wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎关注，不定期推送任意内容。</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-pay.png" alt="wyong WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/29/Android-按百分比来设置控件宽高/" rel="next" title="Android 按百分比来设置控件宽高">
+                <i class="fa fa-chevron-left"></i> Android 按百分比来设置控件宽高
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/29/提升Android-Studio编译速度/" rel="prev" title="提升Android Studio编译速度">
+                提升Android Studio编译速度 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -423,6 +603,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 

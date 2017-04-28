@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius public class TouchImageView extends ImageView { private float radius = 70; private float blurDegree=200; private Paint p">
+<meta name="description" content="看到一篇文章，里面是这么描述的，感觉很好： 在Android中，对Fragment的操作都是通过FragmentTransaction来执行。而从Fragment的结果来看，FragmentTransaction中对Fragment的操作大致可以分为两类： 显示：add() replace() show() attach()隐藏：remove() hide() detach()对于每一组方法，虽然">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="仿微信朋友圈-发红包看图片效果">
-<meta property="og:url" content="https://wyong2017.github.io/2017/04/28/仿微信朋友圈-发红包看图片效果/index.html">
+<meta property="og:title" content="FragmentTransaction事务总结">
+<meta property="og:url" content="https://wyong2017.github.io/2017/04/29/FragmentTransaction事务总结/index.html">
 <meta property="og:site_name" content="W.Y">
-<meta property="og:description" content="代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius public class TouchImageView extends ImageView { private float radius = 70; private float blurDegree=200; private Paint p">
-<meta property="og:updated_time" content="2017-04-28T15:37:23.000Z">
+<meta property="og:description" content="看到一篇文章，里面是这么描述的，感觉很好： 在Android中，对Fragment的操作都是通过FragmentTransaction来执行。而从Fragment的结果来看，FragmentTransaction中对Fragment的操作大致可以分为两类： 显示：add() replace() show() attach()隐藏：remove() hide() detach()对于每一组方法，虽然">
+<meta property="og:updated_time" content="2017-04-28T16:11:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="仿微信朋友圈-发红包看图片效果">
-<meta name="twitter:description" content="代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius public class TouchImageView extends ImageView { private float radius = 70; private float blurDegree=200; private Paint p">
+<meta name="twitter:title" content="FragmentTransaction事务总结">
+<meta name="twitter:description" content="看到一篇文章，里面是这么描述的，感觉很好： 在Android中，对Fragment的操作都是通过FragmentTransaction来执行。而从Fragment的结果来看，FragmentTransaction中对Fragment的操作大致可以分为两类： 显示：add() replace() show() attach()隐藏：remove() hide() detach()对于每一组方法，虽然">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://wyong2017.github.io/2017/04/28/仿微信朋友圈-发红包看图片效果/"/>
+  <link rel="canonical" href="https://wyong2017.github.io/2017/04/29/FragmentTransaction事务总结/"/>
 
 
 
 
 
-  <title> 仿微信朋友圈-发红包看图片效果 | W.Y </title>
+  <title> FragmentTransaction事务总结 | W.Y </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -244,7 +244,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://wyong2017.github.io/2017/04/28/仿微信朋友圈-发红包看图片效果/">
+    <link itemprop="mainEntityOfPage" href="https://wyong2017.github.io/2017/04/29/FragmentTransaction事务总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wyong">
@@ -265,7 +265,7 @@
             
             
               
-                仿微信朋友圈-发红包看图片效果
+                FragmentTransaction事务总结
               
             
           </h1>
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-28T23:33:55+08:00">
-                2017-04-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-29T00:09:51+08:00">
+                2017-04-29
               </time>
             
 
@@ -316,74 +316,19 @@
       
 
       
-        <p>代码很简单，采用BitmapShader的复制图片机制实现。用法与ImageView相同，可设置模糊度setBlurDegree以及显示半径setRadius</p>
-<pre><code>public class TouchImageView extends ImageView {
-private float radius = 70;
-private float blurDegree=200;
-private Paint paint = null;
-private Bitmap blurBitmap=null;
+        <p>看到一篇文章，里面是这么描述的，感觉很好：</p>
+<p>在Android中，对Fragment的操作都是通过FragmentTransaction来执行。而从Fragment的结果来看，FragmentTransaction中对Fragment的操作大致可以分为两类：</p>
+<p>显示：add() replace() show() attach()<br>隐藏：remove() hide() detach()<br>对于每一组方法，虽然最后产生的效果类似，但方法背后带来的副作用以及对Fragment的生命周期的影响都不尽相同。</p>
+<p>###add() vs. replace()</p>
+<p>只有在Fragment数量大于等于2的时候，调用add()还是replace()的区别才能体现出来。当通过add()连续两次添加Fragment的时候，每个Fragment生命周期中的onAttach()-onResume()都会被各调用一次，而且两个Fragment的View会被同时attach到containerView。</p>
+<p>同样，退出Activty时，每个Fragment生命周期中的onPause()-onDetach()也会被各调用一次</p>
+<p>但当使用replace()来添加Fragment的时候，第二次添加会导致第一个Fragment被销毁，即执行第二个Fragment的onAttach()方法之前会先执行第一个Fragment的onPause()-onDetach()方法，同时containerView会detach第一个Fragment的View。</p>
+<p>###show() &amp; hide() vs. attach() &amp; detach()</p>
+<p>调用show() &amp; hide()方法时，Fragment的生命周期方法并不会被执行，仅仅是Fragment的View被显示或者​隐藏。而且，尽管Fragment的View被隐藏，但它在父布局中并未被detach，仍然是作为containerView的childView存在着。相比较下，attach() &amp; detach()做的就更彻底一些。一旦一个Fragment被detach()，它的onPause()-onDestroyView()周期都会被执行。</p>
+<p>同时Fragment的View也会被detach。在重新调用attach()后，onCreateView()-onResume()周期也会被再次执行。</p>
+<p>###remove()</p>
+<p>其实看完上面的分析，remove()方法基本也就明白了。相对应add()方法执行onAttach()-onResume()的生命周期，remove()就是完成剩下的onPause()-onDetach()周期。</p>
 
-private float x;
-private float y;
-private boolean shouldDrawOpening = false;
-
-public TouchImageView(Context context) {
-    super(context);
-}
-
-public TouchImageView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-}
-
-public void setRadius(float radius) {
-    this.radius = radius;
-}
-public void setBlurDegree(float blurDegree){
-    this.blurDegree = blurDegree;
-}
-
-@Override
-public boolean onTouchEvent(MotionEvent motionEvent) {
-    int action = motionEvent.getAction();
-    shouldDrawOpening = (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE);
-    x = motionEvent.getX();
-    y = motionEvent.getY();
-    invalidate();
-    return true;
-}
-
-@Override
-protected void onDraw(Canvas canvas) {
-    if (paint == null || blurBitmap == null) {
-        //创建与ImageView相同大小的画布
-        Bitmap original = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas originalCanvas = new Canvas(original);
-
-        //第一次，新建canvas，并绘制。但是注意：再第二次调用onDraw方法时，不会绘制并且不会保存。
-        super.onDraw(originalCanvas);
-
-        //根据原始图片创建Shader，画笔将按照原始图片画图。
-        Shader shader = new BitmapShader(original, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        paint = new Paint();
-        paint.setShader(shader);
-
-        //创建模糊图片
-        blurBitmap = blur(original, blurDegree);
-    }
-    //将模糊图片绘制在ImageView原始画布上
-    canvas.drawBitmap(blurBitmap, 0, 0, paint);
-    if (shouldDrawOpening) {
-        //根据原始图片以及Shader，画笔按照原始图片画圆
-        canvas.drawCircle(x, y - radius, radius, paint);
-    }
-}
-
-private Bitmap blur(Bitmap original, float radius) {
-    Bitmap bitmap = Bitmap.createBitmap(original);
-    return Blur.fastBlur(bitmap, (int) radius, true);
-}
-}
-</code></pre>
       
     </div>
 
@@ -440,8 +385,8 @@ private Bitmap blur(Bitmap original, float radius) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/29/提升Android-Studio编译速度/" rel="next" title="提升Android Studio编译速度">
-                <i class="fa fa-chevron-left"></i> 提升Android Studio编译速度
+              <a href="/2017/04/29/推荐一个好用的VPN软件/" rel="next" title="推荐一个好用的VPN软件">
+                <i class="fa fa-chevron-left"></i> 推荐一个好用的VPN软件
               </a>
             
           </div>
@@ -449,6 +394,10 @@ private Bitmap blur(Bitmap original, float radius) {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/29/Android-Touch事件的传递机制/" rel="prev" title="Android Touch事件的传递机制">
+                Android Touch事件的传递机制 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
