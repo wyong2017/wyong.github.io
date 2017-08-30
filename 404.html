@@ -1,27 +1,25 @@
-<!DOCTYPE HTML>
 <html>
 <head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8;"/>
-  
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>浏览器定位</title>
+	
 </head>
 <body>
-  <div id="demo">aaa</div>
-<script type="text/javascript">
-
+	<div id="demo">aaaaa</div>
+	<script>
 var x=document.getElementById("demo");
-function getLocation()
-  {
-  if (navigator.geolocation)
-    {
-    navigator.geolocation.getCurrentPosition(showPosition);
-    }
-  else{x.innerHTML="Geolocation is not supported by this browser.";}
-  }
 function showPosition(position)
   {
   x.innerHTML="Latitude: " + position.coords.latitude +
   "<br />Longitude: " + position.coords.longitude;
   }
+  if (navigator.geolocation)
+    {
+    navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  else{x.innerHTML="Geolocation is not supported by this browser.";
+}
+  
 
 </script>
 </body>
